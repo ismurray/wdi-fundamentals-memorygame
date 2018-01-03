@@ -2,6 +2,7 @@
 body {
 	text-align: center;
 	text-decoration: none;
+	margin: 0;
 
 }
 
@@ -12,18 +13,31 @@ h1, h2, a, h4 {
 	letter-spacing: 1px;
 }
 
+header {
+	background-color: #F15B31;
+	
+	padding: 30px 20px;
+}
+
+main {
+	width: 850px;
+	margin: 35px auto;
+}
+
 h1 {
 	font-weight: 400;
 	font-size: 45px;
-	
+	margin: 0;
+	color: #FFFFFF;
 
 }
 
 a {
 	text-decoration: none;
-	color: #F15B31;
+	color: #FFFFFF;
 	font-weight: 600;
 	font-size: 18px;
+	margin: 0 20px;
 }
 
 h2 {
@@ -35,4 +49,18 @@ p {
 	font-family: "Droid Serif", serif;
 	line-height: 26px;
 	font-size: 18px;
+}
+
+nav {
+	background-color: #00A6B3;
+	color: #FFFFFF;
+	padding: 20px 0;
+}
+
+img {
+	margin: 40px 8px 0px 8px;
+}
+
+span {
+	color: #F15B31;
 }
