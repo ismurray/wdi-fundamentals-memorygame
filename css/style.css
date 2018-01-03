@@ -15,7 +15,6 @@ h1, h2, a, h4 {
 
 header {
 	background-color: #F15B31;
-	
 	padding: 30px 20px;
 }
 
@@ -34,10 +33,13 @@ h1 {
 
 a {
 	text-decoration: none;
-	color: #FFFFFF;
 	font-weight: 600;
 	font-size: 18px;
 	margin: 0 20px;
+}
+
+h3 a {
+	color: #FFFFFF;
 }
 
 h2 {
@@ -61,6 +63,6 @@ img {
 	margin: 40px 8px 0px 8px;
 }
 
-span {
+p a {
 	color: #F15B31;
 }
