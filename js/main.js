@@ -21,27 +21,45 @@ cardImage: "images/king-of-diamonds.png"
 }
 ];
 var cardsInPlay = [];
+var notify = document.getElementById("lblNotify").textContent;
+var failCount = 0;
 
 
 
 var checkForMatch = function () {
 	if (cardsInPlay.length === 2) {
 			if (cardsInPlay[0] === cardsInPlay[1]) {
-				document.getElementById("notify").textContent = "You found a match!";
+				notify = "You found a match! Reshuffling...";
+				document.getElementById("lblScore").textContent = parseInt(document.getElementById("lblScore").textContent) + 1; //raises score on match
+				document.body.addEventListener('click', resetBoard); //delays reshuffle till after a 3rd click
 			}
 			else {
-				document.getElementById("notify").textContent = "Sorry, try again.";
+				failCount = failCount + 1
+				if (failCount === 3) {
+					notify = "Sorry, you're out of tries! Reshuffling...";
+					document.body.addEventListener('click', resetBoard); //delays reshuffle till after a 3rd click
+				}
+				else {
+					notify = "Sorry, try again.";
+					document.body.addEventListener('click', cardsDown); //delays reset till after a 3rd click
+				}
+				
 			};
-			document.body.addEventListener('click', resetBoard); //delays reset till after a 3rd click
+			document.body.addEventListener('click', cardsDown); //delays reset till after a 3rd click
+			document.getElementById("lblNotify").textContent = notify
 
 		}
 };
 
 var flipCard = function () {
 	var cardId = this.getAttribute("data-id");
-	this.setAttribute("src", cards[cardId].cardImage);
-	cardsInPlay.push(cards[cardId].rank);
-	window.setTimeout(checkForMatch, 30);	//delays check till after img flip actually renders
+	console.log(this.getAttribute("src"));
+	if (this.getAttribute("src") === "images/back.png") {	//prevents self matching on one card
+		this.setAttribute("src", cards[cardId].cardImage);
+		cardsInPlay.push(cards[cardId].rank);
+		window.setTimeout(checkForMatch, 30);	//delays check till after img flip actually renders
+	}
+	
 };
 
 var createBoard = function () {
@@ -55,15 +73,28 @@ var createBoard = function () {
 	}
 };
 
-var resetBoard = function () {
+var cardsDown = function () {
 	for (var i = 0; i < cards.length; i++) {
 		var cardElement = document.getElementsByTagName("img")[i];
 		cardElement.setAttribute("src", "images/back.png");	//flip cards back down
-		document.getElementById("notify").textContent = "Find two Queens or Kings to raise your score!"	//reset notification
+		document.getElementById("lblNotify").textContent = "Find two Queens or Kings to raise your score!"	//reset notification
 		cardsInPlay = [];
-		document.body.removeEventListener('click', resetBoard); //to remove reset delay 
+		document.body.removeEventListener('click', cardsDown); //to remove reset delay 
 	}
 }
+
+var resetBoard = function () {
+	var parent = document.getElementById("game-board");
+	var cardPic = document.getElementsByTagName("img")[0];
+	cardsInPlay = [];
+	failCount = 0;
+	document.body.removeEventListener('click', resetBoard); //to remove reshuffle delay 
+	for (var i = 0; i < cards.length; i++) {
+		var cardPic = document.getElementsByTagName("img")[0];
+		parent.removeChild(cardPic);
+	};
+	createBoard();
+};
 
 createBoard();
 
