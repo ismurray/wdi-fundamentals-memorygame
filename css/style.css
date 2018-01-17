@@ -65,7 +65,7 @@ nav {
 }
 
 img {
-	margin: 40px 8px 0px 8px;
+	margin: 0px 8px 0px 8px;
 }
 
 p a {
@@ -104,4 +104,9 @@ footer {
 .name {
 	color: #F15B31;
 	font-weight: 700;
+}
+
+#notify {
+	font-weight: 700;
+	margin-top: 40px;
 }
