@@ -34,7 +34,7 @@ var checkForMatch = function (cardId) {
 };
 
 var flipCard = function () {
-	var cardId = this.getAttribute("data-id");
+	var cardId = Math.floor(Math.random() * 4);
 	this.setAttribute("src", cards[cardId].cardImage);
 	cardsInPlay.push(cards[cardId].rank);
 	checkForMatch(cardId);	
