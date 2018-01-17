@@ -1,23 +1,28 @@
 var cards = [
 {
-rank: "queen",
+rank: "sun",
 suit: "hearts",
-cardImage: "images/queen-of-hearts.png"
+cardImage: "images/sun.png"
 },
 {
-rank: "queen",
+rank: "moon",
 suit: "diamonds",
-cardImage: "images/queen-of-diamonds.png"
+cardImage: "images/moon.png"
 },
 {
-rank: "king",
+rank: "jester",
 suit: "hearts",
-cardImage: "images/king-of-hearts.png"
+cardImage: "images/jester.png"
 },
 {
-rank: "king",
+rank: "knight",
+suit: "hearts",
+cardImage: "images/knight.png"
+},
+{
+rank: "vizier",
 suit: "diamonds",
-cardImage: "images/king-of-diamonds.png"
+cardImage: "images/vizier.png"
 }
 ];
 var cardsInPlay = [];
@@ -53,8 +58,7 @@ var checkForMatch = function () {
 
 var flipCard = function () {
 	var cardId = this.getAttribute("data-id");
-	console.log(this.getAttribute("src"));
-	if (this.getAttribute("src") === "images/back.png") {	//prevents self matching on one card
+	if (this.getAttribute("src") === "images/new-back.png") {	//prevents self matching on one card
 		this.setAttribute("src", cards[cardId].cardImage);
 		cardsInPlay.push(cards[cardId].rank);
 		window.setTimeout(checkForMatch, 30);	//delays check till after img flip actually renders
@@ -63,10 +67,10 @@ var flipCard = function () {
 };
 
 var createBoard = function () {
-	for (var i = 0; i < cards.length; i++) {
+	for (var i = 0; i < 8; i++) {
 		var cardId = Math.floor(Math.random() * 4); //randomizes card value on flip, can cause duplicates
 		var cardElement = document.createElement("img");
-		cardElement.setAttribute("src", "images/back.png");
+		cardElement.setAttribute("src", "images/new-back.png");
 		cardElement.setAttribute("data-id", cardId);
 		cardElement.addEventListener("click", flipCard);
 		document.getElementById("game-board").appendChild(cardElement);
@@ -74,9 +78,9 @@ var createBoard = function () {
 };
 
 var cardsDown = function () {
-	for (var i = 0; i < cards.length; i++) {
+	for (var i = 0; i < 8; i++) {
 		var cardElement = document.getElementsByTagName("img")[i];
-		cardElement.setAttribute("src", "images/back.png");	//flip cards back down
+		cardElement.setAttribute("src", "images/new-back.png");	//flip cards back down
 		document.getElementById("lblNotify").textContent = "Find two Queens or Kings to raise your score!"	//reset notification
 		cardsInPlay = [];
 		document.body.removeEventListener('click', cardsDown); //to remove reset delay 
@@ -89,7 +93,7 @@ var resetBoard = function () {
 	cardsInPlay = [];
 	failCount = 0;
 	document.body.removeEventListener('click', resetBoard); //to remove reshuffle delay 
-	for (var i = 0; i < cards.length; i++) {
+	for (var i = 0; i < 8; i++) {
 		var cardPic = document.getElementsByTagName("img")[0];
 		parent.removeChild(cardPic);
 	};
